@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Wheels - Book a Ride</title>
+    <style>
+        body {
+            background-color: green;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            padding: 50px;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        .form-group input, .form-group select, .form-group button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            margin: 10px auto;
+            display: block;
+            border: none;
+        }
+        .form-group button {
+            background-color: white;
+            color: green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Green Wheels</h1>
+        <p>Book a Ride</p>
+        <form id="bookingForm" action="https://docs.google.com/forms/d/e/1FAIpQLSejjsyQisWb8552KtzdJrWWtdVdbR_40WgOt8FXGO6Fld_Btg/formResponse" method="POST">
+            <div class="form-group">
+                <input type="text" name="entry.1829561327" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="text" name="entry.1215135137" placeholder="Your Address" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" name="entry.1337265871" placeholder="Your Phone Number" required>
+            </div>
+            <div class="form-group">
+                <select name="entry.1538576714" required>
+                    <option value="" disabled selected>Select Truck Type</option>
+                    <option value="Auto">Auto</option>
+                    <option value="Mini Truck">Mini Truck</option>
+                    <option value="Medium Truck">Medium Truck</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Book a Ride</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('bookingForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            
+            // Show confirmation message (optional)
+            document.querySelector('.container').innerHTML = '<h1>Truck Booked!</h1><p>Thank you for booking with Green Wheels.</p>';
+            
+            // Submit the form asynchronously
+            const formData = new FormData(this);
+            fetch(this.action, {
+                method: this.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Success!', response);
+                // You can redirect or perform other actions here
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                // Handle errors here
+            });
+        });
+    </script>
+</body>
+</html>
